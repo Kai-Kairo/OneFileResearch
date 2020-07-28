@@ -2,6 +2,8 @@
  * Created by Toleubay Alikhan (StarLigthNova)
  * 28/07/2020
  * Spinning circles
+ * JavaFX 11
+ * Way to start: https://openjfx.io/openjfx-docs/#install-javafx
 */
 
 
