@@ -8,7 +8,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,7 +19,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.geometry.Insets;
 import javafx.animation.PathTransition; 
-import javafx.scene.shape.CubicCurveTo; 
 import javafx.scene.shape.MoveTo; 
 import javafx.scene.shape.Path; 
 import javafx.util.Duration;  
@@ -33,8 +31,8 @@ import java.util.ArrayList;
 
 
 public class BallsInTheCircleIllusion extends Application{
-	private final double Screen_Width = 640.00; //you may change it to 1280.00 also
-	private final double Screen_Height = 480.00; //you may change it to 720.00 also
+	private final double Screen_Width = 750.00; //you may change it to 1280.00 also
+	private final double Screen_Height = 500.00; //you may change it to 720.00 also
 	private final double circle_radius = (Screen_Width / 2 + Screen_Height / 2) / 4; //dynamic radius depending on width and height
 	private final double circle_x_center = Screen_Width / 2;
 	private final double circle_y_center = Screen_Height / 2;
@@ -58,12 +56,15 @@ public class BallsInTheCircleIllusion extends Application{
 		main_pane = new StackPane();
 		main_circle = new Circle(circle_x_center, circle_y_center, circle_radius);
 
+
 		//new Buttons
 		addBalls = new Button("ADD BALL");
 		clearCircle = new Button("CLEAR");
 		StartCircle = new Button("START");
 		hideRedLines = new Button("HIDE RED");
 		showRedLines = new Button("SHOW RED");
+
+
 
 		main_circle.setFill(Color.WHITE);
 		main_circle.setStroke(Color.BLACK);
@@ -89,6 +90,8 @@ public class BallsInTheCircleIllusion extends Application{
 		});
 
 
+
+
 		//main_pane.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
 
 
@@ -100,6 +103,7 @@ public class BallsInTheCircleIllusion extends Application{
 		UI_container.setStyle("-fx-padding: 10px;");
 		UI_container.setAlignment(Pos.CENTER);
 		UI_container.setSpacing(10);
+
 		container.getChildren().addAll(main_pane, UI_container);
 		container.setSpacing(50);
 
@@ -130,7 +134,9 @@ public class BallsInTheCircleIllusion extends Application{
 
 		PathTransition pathTransition = new PathTransition(); 
 		pathTransition.setDelay(Duration.millis(121 * (counter + 1)));
-        pathTransition.setDuration(Duration.millis(1000)); 
+
+		pathTransition.setDuration(Duration.millis(1000));
+        
         pathTransition.setNode(newCircle);
         pathTransition.setPath(path);  
         //pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TAN_GENT); 
