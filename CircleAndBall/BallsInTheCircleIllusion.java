@@ -27,6 +27,8 @@ import javafx.util.Duration;
 import javafx.scene.shape.LineTo; 
 import javafx.scene.control.Button;
 import javafx.geometry.Pos;
+import javafx.scene.text.Text;
+import javafx.animation.Timeline;
 
 import java.util.ArrayList;
 
@@ -40,6 +42,8 @@ public class BallsInTheCircleIllusion extends Application{
 	private final double circle_y_center = Screen_Height / 2;
 	private int amount = 16;
 	private int counter = 0;
+	private double spd = 1000.0;
+	private double del = 121.0;
 	private HBox container;
 	private VBox UI_container;
 	private StackPane main_pane;
@@ -49,6 +53,18 @@ public class BallsInTheCircleIllusion extends Application{
 	private Button StartCircle;
 	private Button hideRedLines;
 	private Button showRedLines;
+	private Button amountIncreaser;
+	private Button amountDecreaser;
+	private HBox amount_container;
+	private Text text_amount = new Text(": " + amount + " (360 / n)");
+	private Button speedIn;
+	private Button speedDe;
+	private HBox speed_container;
+	private Text text_speed = new Text(": " + spd + " millis");
+	private Button delayIn;
+	private Button delayDe;
+	private HBox delay_container;
+	private Text text_delay = new Text(": " + del + " delay millis");
 	private ArrayList<Line> list_of_lines = new ArrayList<>();
 
 	@Override
@@ -65,6 +81,16 @@ public class BallsInTheCircleIllusion extends Application{
 		StartCircle = new Button("START");
 		hideRedLines = new Button("HIDE RED");
 		showRedLines = new Button("SHOW RED");
+		amountIncreaser = new Button("+");
+		amountDecreaser = new Button("-");
+		speedIn = new Button("+");
+		speedDe = new Button("-");
+		delayIn = new Button("+");
+		delayDe = new Button("-");
+
+		delay_container  = new HBox(delayDe, delayIn, text_delay);
+		amount_container = new HBox(amountDecreaser, amountIncreaser, text_amount);
+		speed_container  = new HBox(speedDe, speedIn, text_speed);
 
 
 
@@ -81,6 +107,10 @@ public class BallsInTheCircleIllusion extends Application{
 		});
 		StartCircle.setOnAction(e ->{
 			startAppearance();
+			text_amount.setText(": " + amount + " (360 / n)");
+			text_speed.setText(": " + spd + " millis");
+			text_delay.setText(": " + del + " delay millis");
+
 		});
 
 		hideRedLines.setOnAction(e -> {
@@ -91,7 +121,35 @@ public class BallsInTheCircleIllusion extends Application{
 			showRed();
 		});
 
+		amountIncreaser.setOnAction(e -> {
+			amount++;
+			text_amount.setText(": " + amount + " (360 / n)");
+		});
 
+		amountDecreaser.setOnAction(e -> {
+			amount--;
+			text_amount.setText(": " + amount + " (360 / n)");
+		});
+
+		speedIn.setOnAction(e -> {
+			spd += 100.0;
+			text_speed.setText(": " + spd + " millis");
+		});
+
+		speedDe.setOnAction(e -> {
+			spd -= 100.0;
+			text_speed.setText(": " + spd + " millis");
+		});
+
+		delayIn.setOnAction(e -> {
+			del++;
+			text_delay.setText(": " + del + " delay millis");
+		});
+
+		delayDe.setOnAction(e -> {
+			del--;
+			text_delay.setText(": " + del + " delay millis");
+		});
 
 
 		//main_pane.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -101,10 +159,13 @@ public class BallsInTheCircleIllusion extends Application{
 		main_pane.setStyle("-fx-padding: 50px;");
 		startAppearance();
 
-		UI_container.getChildren().addAll(addBalls, clearCircle, StartCircle, hideRedLines, showRedLines);
+		UI_container.getChildren().addAll(addBalls, clearCircle, StartCircle, hideRedLines, showRedLines, amount_container, speed_container, delay_container);
 		UI_container.setStyle("-fx-padding: 10px;");
 		UI_container.setAlignment(Pos.CENTER);
 		UI_container.setSpacing(10);
+		amount_container.setSpacing(10);
+		speed_container.setSpacing(10);
+		delay_container.setSpacing(10);
 
 		container.getChildren().addAll(main_pane, UI_container);
 		container.setSpacing(50);
@@ -135,14 +196,14 @@ public class BallsInTheCircleIllusion extends Application{
 		path.getElements().add(line1);
 
 		PathTransition pathTransition = new PathTransition(); 
-		pathTransition.setDelay(Duration.millis(121 * (counter + 1)));
+		pathTransition.setDelay(Duration.millis(del * (counter + 1)));
 
-		pathTransition.setDuration(Duration.millis(1000));
+		pathTransition.setDuration(Duration.millis(spd));
         
         pathTransition.setNode(newCircle);
         pathTransition.setPath(path);  
         //pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TAN_GENT); 
-        pathTransition.setCycleCount(50);
+        pathTransition.setCycleCount(Timeline.INDEFINITE);
         pathTransition.setAutoReverse(true);
         pathTransition.play();
 
