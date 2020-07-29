@@ -4,6 +4,7 @@
  * Spinning circles
  * JavaFX 11
  * Way to start: https://openjfx.io/openjfx-docs/#install-javafx
+ * Try many variation of delay and amount of balls with speed, you will even see 3D model of warm if you can :) Good luck
 */
 
 
